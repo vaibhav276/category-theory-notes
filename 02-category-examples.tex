@@ -1,0 +1,58 @@
+\documentclass{article}
+\author{Vaibhav Pujari}
+\title{Categories}
+\begin{document}
+\section{Category of Vector Spaces}
+\begin{itemize}
+\item \textbf{Objects}
+
+  Each vector space is an object
+
+\item \textbf{Morphisms}
+
+  Transformations (represented as matrices) between vector spaces
+
+\item \textbf{Identities}
+
+  The identity matrix for each vector space
+
+\item \textbf{Composition}
+
+  Matrix multiplication
+
+\end{itemize}
+
+\section{Monoid of Integers on Addition}
+This is a singleton category - it contains only one object
+\begin{itemize}
+\item \textbf{Objects}
+
+  $Integer$
+
+  Note the abstraction here. We are not specifying which integer. So, for
+  example both $20$ and $25$ are things which happen to be represented by the
+  same object $Integer$ in this category.
+
+\item \textbf{Morphisms}
+
+  Set of integers, $Z$
+
+  This is interesting. Here, the morphisms are just simple integers. So, for
+  example to go from an object, say $20$ to an object, say $25$ (both are same
+  objects because of our abstraction), we apply the morphism $5$. In case of a
+  monoid category, we always start and end at the same object since there is
+  only one object.
+
+\item \textbf{Identities}
+
+  The integer $0$ for our only object $Integer$
+
+\item \textbf{Composition}
+
+  Integer addition
+
+  That is, to compose say two morphisms $4$ and $6$, we add them to get a third
+  morphism $10$
+
+\end{itemize}
+\end{document}
