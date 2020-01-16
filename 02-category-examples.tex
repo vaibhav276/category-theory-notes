@@ -55,4 +55,60 @@ This is a singleton category - it contains only one object
   morphism $10$
 
 \end{itemize}
+
+
+\section{Rubik's cube: Another Monoid}
+\begin{itemize}
+\item \textbf{Objects}
+
+  Rubik's cube
+
+  The abstraction here allows for any configuration of Rubik's cube to be
+  represented by the singleton object
+
+\item \textbf{Morphisms}
+
+  An action on Rubik's cube is a morphism. We can see that its possible to
+  combine two actions to produce a more complex action, and so on. In that way,
+  from any configuration of Rubik's cube, there always exists a single
+  (sufficiently complex) action, or morphism that solves the cube. Again a
+  solved cube is no different than an unsolved cube as far as its significance
+  in category is concerned
+
+\item \textbf{Identities}
+
+  A no-op action, which actually does not change the cube's configuration at
+  all. We can think of it as maybe an action of touching the cube and putting it
+  back. This is something I have performed many times :)
+
+\item \textbf{Composition}
+
+  Composition here is equivalent to sequencing the morphisms. I guess now its
+  getting clearer that not always can we have a composition that forgets its parts
+
+\end{itemize}
+
+\section{Factors}
+\begin{itemize}
+\item \textbf{Objects}
+
+  A set of natural numbers, $N$
+
+\item \textbf{Morphisms}
+
+  There is a single morphism between any two natural numbers $a$ and $b$ if $b$
+  is a multiple of $a$
+
+\item \textbf{Identities}
+
+  Since every natural number is a multiple of itself (we get the same number
+  when we multiply it by 1), there is an identity for each object in this category
+
+\item \textbf{Composition}
+
+  Composition here will simply represent a transitive relationship. If $a$ is a
+  factor of $b$ and $b$ is a factor of $c$ then it implies that $a$ is a factor
+  of $c$, which means there exists a morphism between $a$ and $c$
+
+\end{itemize}
 \end{document}
