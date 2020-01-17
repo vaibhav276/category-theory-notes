@@ -26,6 +26,12 @@ x = 5
 ** Functors
 *** A structure-preserving mapping between two categories
 **** To preserve objects, we just need a type constructor
+#+BEGIN_SRC latex
+F: Ob(Hask) \to Ob(Hask)
+#+END_SRC
 **** To preserve morphism structure, we need ~fmap~. ~fmap~ maps morphism in first category to a morphism in second category such that it is still composable in the same way as original morphism was composable
+#+BEGIN_SRC latex
+fmap: Hom_{Hask} \to Hom_{Hask}
+#+END_SRC
 *** Shrinking the structure is a special case of preserving. When objects collapse, the morphisms must follow
 *** There is a category =Cat=, in which objects are smaller categories and morphisms are functors
