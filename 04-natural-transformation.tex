@@ -1,0 +1,50 @@
+\documentclass{article}
+\author{Vaibhav Pujari}
+\title{Natural Transformation}
+\begin{document}
+\section{Definition}
+
+Given two functors, $F,G : \zeta_1 \to \zeta_2$ which map objects and morphisms
+from $\zeta_1$ to $\zeta_2$, a natural transformation is a bunch of morphisms in
+$\zeta_2$ that maps objects and morphism produced by $F$ into objects and
+morphisms produced by $G$
+
+  \textsf{\tiny
+  \textbf{Notes}
+  \begin{itemize}
+  \item It is denoted by greek letters like $\alpha$ and really represents multiple
+    morphisms under the hood, which live in $\zeta_2$
+  \item Since there might not always be morphisms in $\zeta_2$ that can be
+    utilized for natural transformation, sometimes there is no natural
+    transformation available/possible.
+  \end{itemize}
+  }
+
+\section{Constraints}
+
+\begin{itemize}
+\item \textbf{Diagram must commute}
+
+  For each morphism in $\zeta_1$, there will be two morphisms in $\zeta_2$ (one
+  due to $F$ and another due to $G$). These two morphism and the components
+  (specific to this morphism) of a candidate natural transformation from $F$ to
+  $G$ create a diagram. This diagram must commute for the candidate natural
+  transformation to be a natural transformation
+
+  \textsf{\tiny
+  \textbf{Notes}
+  \begin{itemize}
+  \item One mistake I made initially while trying to understand natural
+    transformations was that I assumed unconditional existence of natural
+    transformations. Now I realize that the existence of natural transformation
+    is subject to availability of morphisms in the target category ($\zeta_2$)
+    which can be used as components to build a natural transformation. If no
+    such morphisms exist, a natural transformation cannot exist.
+  \item For programming it means if there is information loss due to
+    abstraction, or the diagram does not commute, then a natural transformation
+    might not exist between two functors.
+  \end{itemize}
+  }
+\end{itemize}
+
+\end{document}
