@@ -1,0 +1,156 @@
+% Created 2020-01-29 Wed 15:17
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\date{}
+\title{Universal Constructions}
+\hypersetup{
+ pdfauthor={Vaibhav Pujari},
+ pdftitle={Universal Constructions},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.3 (Org mode 9.3)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+
+\section{Terminal objects}
+\label{sec:orgfe6dc0d}
+Objects that have a unique morphism coming into them from every other object in the category
+
+\begin{equation}
+\forall c \in \zeta \exists! c \to T
+\end{equation}
+
+If there are more than one such objects, they are isomorphic
+
+\subsection{Example}
+\label{sec:orgc179554}
+In a category of sets, the terminal object is a singleton set, because there can be only one unique function from any set to a singleton set.
+
+\subsection{Code}
+\label{sec:org9dd47c1}
+\begin{verbatim}
+data Terminal = MkTerm
+bang :: a -> Terminal
+bang _ = MkTerm
+\end{verbatim}
+In haskell, the object \texttt{()} is a terminal object
+
+\section{Initial object}
+\label{sec:org3548e7d}
+Objects that have a unique morphism going out to every other object in the category
+
+\begin{equation}
+\forall c \in \zeta \exists! I \to c
+\end{equation}
+
+If there are more than one such objects, they are isomorphic
+
+\subsection{Example}
+\label{sec:org802f106}
+In a category of sets, the initial object is a null set, because there can be
+only one unique function from a null set to any other set.
+
+\subsection{Code}
+\label{sec:org9ea2a9b}
+\begin{verbatim}
+data Void
+absurd :: Void -> a
+absurd x = absurd x
+\end{verbatim}
+
+\section{Products}
+\label{sec:org99e3acd}
+A product of two objects \(a\) and \(b\) is an object \(a \times b\) that has projections \(\pi_1\) and
+\(\pi_2\) to \(a\) and \(b\) respectively. These projections factorize any other
+projections that exist from other objects \(c\) (potential products) to \(a\) and \(b\)
+
+\subsection{Example}
+\label{sec:org639505e}
+A pair/tuple is a product
+
+\subsection{Code}
+\label{sec:org5e9fdb6}
+\begin{verbatim}
+data Pair a b = MkPair a b
+fst :: Pair a b -> a
+fst (MkPair a _) = a
+snd :: Pair a b -> b
+snd (MkPair _ b) = b
+
+-- For potential products c
+tuple :: (c->a, c->b) -> c -> Pair a b
+tuple f g = \c -> MkPair (f c) (g c)
+
+untuple :: (c -> Pair a b) -> (c->a, c->b)
+untuple h = (fst . h, snd . h)
+
+-- Bifunctor
+-- Code easily obtained by visualizing that Pair a' b' is
+-- a product of a' and b', and thinking of Pair a b as a potential
+-- product c. So what we are basically doing is finding a mapping
+-- from potential product to actual product
+bimap :: (a->a', b->b') -> Pair a b -> Pair a' b'
+bimap f g = tuple (f . fst) (g . snd)
+\end{verbatim}
+
+\section{Coproducts}
+\label{sec:orga821aab}
+If \(c,d \in Ob(\zeta)\), then the coproduct of \(c\) and \(d\) consists of:
+\begin{enumerate}
+\item An object \(c \oplus d \in Ob(\zeta)\)
+\item A morphism \(Left: c \to c \oplus d\)
+\item A morphism \(Right: d \to c \oplus d\)
+\end{enumerate}
+satisfying the property that \(\forall X \in Ob(\zeta)\), and morphisms \(L: c \to
+X\), \(R: d \to X\) there exists a unique morphism \(c \oplus d \to X\), and the
+diagram commutes.
+
+\subsection{Code}
+\label{sec:org4033af4}
+\begin{verbatim}
+data Either a b = Left a | Right b
+-- Left :: a -> Either a b
+-- Right :: b -> Either a b
+
+either :: (c -> x, d -> x) -> Either c d -> x
+either (f, g) (Left c) = f c
+either (f, g) (Right d) = g d
+
+-- Bifunctor
+-- Code can be easily obtained by drawing a diagram
+bimap :: (c->c', d->d') -> Either c d -> Either c' d'
+bimap (f, g) = either (Left . f) (Right . g)
+\end{verbatim}
+
+\section{Exponentials}
+\label{sec:org938c44b}
+Given a function from a product \((a, b)\) to \(c\), we can always get a function
+from \(a\) to a function \(f: b \to c\). A function \(f: b \to c\) is an exponential
+object \(c^b\)
+
+\subsection{Code}
+\label{sec:org5c6e419}
+\begin{verbatim}
+curry :: ((a, b) -> c) -> a -> b -> c
+curry f = \a -> (\b -> f (a,b))
+
+-- And the counterpart
+uncurry :: (a -> (b -> c) -> ((a, b) -> c)
+uncurry f = \(a,b) -> (f a) b
+\end{verbatim}
+\end{document}
